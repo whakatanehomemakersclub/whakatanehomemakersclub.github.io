@@ -29,7 +29,8 @@ const observer = new IntersectionObserver((entries) => {
 function init() {
   // Start countdown
   updateCountdown();
-  setInterval(updateCountdown, 60000); // Update every minute
+  // Update every second for more dynamic countdown
+  setInterval(updateCountdown, 1000);
   
   // Set up observers for animation
   observer.observe(eventCard);
@@ -39,6 +40,9 @@ function init() {
   
   // Add smooth scrolling to all links
   addSmoothScrolling();
+  
+  // Handle image loading errors
+  handleImageErrors();
 }
 
 // Update the countdown timer
@@ -61,6 +65,13 @@ function updateCountdown() {
   daysEl.textContent = days.toString().padStart(2, '0');
   hoursEl.textContent = hours.toString().padStart(2, '0');
   minutesEl.textContent = minutes.toString().padStart(2, '0');
+  
+  // Add a subtle animation effect
+  const countdownItems = document.querySelectorAll('.countdown-item span:first-child');
+  countdownItems.forEach(item => {
+    item.classList.add('pulse');
+    setTimeout(() => item.classList.remove('pulse'), 500);
+  });
 }
 
 // Set up event listeners
@@ -134,6 +145,33 @@ function addSmoothScrolling() {
         });
       }
     });
+  });
+}
+
+// Handle image loading errors
+function handleImageErrors() {
+  const images = document.querySelectorAll('img');
+  
+  images.forEach(img => {
+    img.onerror = function() {
+      console.log(`Failed to load image: ${img.src}`);
+      // Set a default background color to show something is there
+      img.style.backgroundColor = '#f0e6dc';
+      // Add a text placeholder
+      const altText = img.alt || 'Image';
+      img.style.display = 'flex';
+      img.style.alignItems = 'center';
+      img.style.justifyContent = 'center';
+      img.style.fontFamily = 'var(--font-body)';
+      img.style.fontSize = '0.9rem';
+      img.style.padding = '20px';
+      img.style.color = '#5a4a42';
+      img.style.textAlign = 'center';
+      
+      // Create a text node with the alt text
+      const text = document.createTextNode(altText);
+      img.parentNode.insertBefore(text, img.nextSibling);
+    };
   });
 }
 
