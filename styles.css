@@ -63,13 +63,39 @@ body {
 }
 
 .logo {
-  width: 180px;
-  height: 180px;
+  width: 200px;
+  height: auto;
   object-fit: contain;
-  margin-bottom: 40px;
-  border-radius: 5px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  margin-bottom: 50px;
+  border-radius: 0;
+  box-shadow: none;
 }
+
+/* Update responsive sizes for logo */
+@media (max-width: 992px) {
+  .logo {
+    width: 180px;
+    margin-bottom: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .logo {
+    width: 160px;
+    margin-bottom: 35px;
+  } 
+}
+
+@media (max-width: 576px) {
+  .logo {
+    width: 140px;
+    margin-bottom: 30px;
+  }
+
+  /* Add more space between logo and heading on small screens */
+  .hero-content {
+    margin-top: 15px;
+  }
 
 .hero-content {
   max-width: 800px;
