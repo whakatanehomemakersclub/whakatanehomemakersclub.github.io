@@ -3,9 +3,13 @@
 // DOM elements
 const eventCard = document.querySelector('.event-card');
 const rsvpBtn = document.querySelector('.rsvp-btn');
-const modal = document.getElementById('rsvpModal');
+const rsvpModal = document.getElementById('rsvpModal');
+const contactModal = document.getElementById('contactModal');
+const contactUsBtn = document.querySelector('.contact-us-btn');
 const closeBtn = document.querySelector('.close-btn');
+const contactCloseBtn = document.querySelector('.contact-close-btn');
 const rsvpForm = document.getElementById('rsvpForm');
+const contactForm = document.getElementById('contactForm');
 const countdownEl = document.getElementById('countdown');
 const daysEl = document.getElementById('days');
 const hoursEl = document.getElementById('hours');
@@ -76,30 +80,45 @@ function updateCountdown() {
 
 // Set up event listeners
 function setupEventListeners() {
-  // Modal open
+  // RSVP Modal open
   rsvpBtn.addEventListener('click', () => {
-    modal.style.display = 'flex';
-    setTimeout(() => {
-      modal.classList.add('show');
-    }, 10);
+    openModal(rsvpModal);
   });
   
-  // Modal close
-  closeBtn.addEventListener('click', closeModal);
+  // Contact Modal open
+  contactUsBtn.addEventListener('click', () => {
+    openModal(contactModal);
+  });
   
-  // Close if clicked outside
+  // Modal close buttons
+  closeBtn.addEventListener('click', () => closeModal(rsvpModal));
+  contactCloseBtn.addEventListener('click', () => closeModal(contactModal));
+  
+  // Close if clicked outside modal
   window.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      closeModal();
+    if (e.target === rsvpModal) {
+      closeModal(rsvpModal);
+    }
+    if (e.target === contactModal) {
+      closeModal(contactModal);
     }
   });
   
-  // Handle form submission
-  rsvpForm.addEventListener('submit', handleFormSubmit);
+  // Handle form submissions
+  rsvpForm.addEventListener('submit', handleRsvpSubmit);
+  contactForm.addEventListener('submit', handleContactSubmit);
 }
 
-// Close the modal
-function closeModal() {
+// Open modal function
+function openModal(modal) {
+  modal.style.display = 'flex';
+  setTimeout(() => {
+    modal.classList.add('show');
+  }, 10);
+}
+
+// Close modal function
+function closeModal(modal) {
   modal.classList.remove('show');
   setTimeout(() => {
     modal.style.display = 'none';
@@ -107,7 +126,7 @@ function closeModal() {
 }
 
 // Handle RSVP form submission
-function handleFormSubmit(e) {
+function handleRsvpSubmit(e) {
   e.preventDefault();
   
   // Get form data
@@ -128,7 +147,29 @@ function handleFormSubmit(e) {
   `;
   
   // Close modal after 3 seconds
-  setTimeout(closeModal, 3000);
+  setTimeout(() => closeModal(rsvpModal), 3000);
+}
+
+// Handle Contact form submission
+function handleContactSubmit(e) {
+  e.preventDefault();
+  
+  // Get form data
+  const name = document.getElementById('contactName').value;
+  const email = document.getElementById('contactEmail').value;
+  const interest = document.getElementById('contactInterest').value;
+  
+  // In a real application, you would send this data to a server
+  contactForm.innerHTML = `
+    <div class="thank-you">
+      <h3>Thank you, ${name}!</h3>
+      <p>We've received your message and will get back to you shortly at ${email}.</p>
+      <p>We appreciate your interest in our ${interest} activities!</p>
+    </div>
+  `;
+  
+  // Close modal after 3 seconds
+  setTimeout(() => closeModal(contactModal), 3000);
 }
 
 // Add smooth scrolling to all links
@@ -174,121 +215,6 @@ function handleImageErrors() {
     };
   });
 }
-
-// Additional CSS for elements added via JS
-const style = document.createElement('style');
-style.textContent = `
-  .countdown {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin: 30px 0;
-  }
-  
-  .countdown-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .countdown-item span:first-child {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: var(--primary-color);
-    background: var(--card-bg);
-    border-radius: 8px;
-    padding: 10px 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    min-width: 70px;
-    text-align: center;
-  }
-  
-  .countdown-item span:last-child {
-    margin-top: 8px;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  
-  .modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.5);
-    z-index: 100;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  
-  .modal.show {
-    opacity: 1;
-  }
-  
-  .modal-content {
-    background-color: var(--card-bg);
-    padding: 40px;
-    border-radius: 12px;
-    max-width: 500px;
-    width: 90%;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    position: relative;
-    transform: translateY(20px);
-    transition: transform 0.3s ease;
-  }
-  
-  .modal.show .modal-content {
-    transform: translateY(0);
-  }
-  
-  .close-btn {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 1.8rem;
-    color: var(--primary-color);
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  
-  .close-btn:hover {
-    color: #000;
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: var(--primary-color);
-  }
-  
-  .form-group input[type="text"],
-  .form-group input[type="email"] {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 1rem;
-  }
-  
-  .radio-group {
-    margin: 10px 0;
-  }
-  
-  .thank-you {
-    text-align: center;
-    padding: 20px 0;
-  }
-`;
-document.head.appendChild(style);
 
 // Initialize everything once DOM is loaded
 document.addEventListener('DOMContentLoaded', init);
