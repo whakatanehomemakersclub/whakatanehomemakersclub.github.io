@@ -71,32 +71,6 @@ body {
   box-shadow: none;
 }
 
-/* Update responsive sizes for logo */
-@media (max-width: 992px) {
-  .logo {
-    width: 180px;
-    margin-bottom: 40px;
-  }
-}
-
-@media (max-width: 768px) {
-  .logo {
-    width: 160px;
-    margin-bottom: 35px;
-  } 
-}
-
-@media (max-width: 576px) {
-  .logo {
-    width: 140px;
-    margin-bottom: 30px;
-  }
-
-  /* Add more space between logo and heading on small screens */
-  .hero-content {
-    margin-top: 15px;
-  }
-
 .hero-content {
   max-width: 800px;
   animation: fadeIn 1s ease-out forwards;
@@ -443,7 +417,7 @@ footer {
   
   .logo {
     width: 150px;
-    height: 150px;
+    margin-bottom: 40px;
   }
 }
 
@@ -470,6 +444,11 @@ footer {
     min-height: 70px;
     font-size: 2.2rem;
   }
+  
+  .logo {
+    width: 160px;
+    margin-bottom: 35px;
+  }
 }
 
 @media (max-width: 576px) {
@@ -482,8 +461,13 @@ footer {
   }
   
   .logo {
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    margin-bottom: 30px;
+  }
+  
+  /* Add more space between logo and heading on small screens */
+  .hero-content {
+    margin-top: 15px;
   }
   
   .event-details {
