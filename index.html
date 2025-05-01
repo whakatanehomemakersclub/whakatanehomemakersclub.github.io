@@ -69,49 +69,22 @@
 
         <!-- Contact Section - Now with embedded form -->
         <section class="contact-section" id="contact">
-            <div class="container">
-                <h2>Get in Touch</h2>
-                <p>Questions about the club or upcoming event? We'd love to hear from you!</p>
-                
-                <!-- Embedded Contact Form -->
-                <div class="contact-form-container">
-                    <form id="contactForm" action="https://formsubmit.co/whakatanehomemakers@gmail.com" method="POST">
-                        <!-- FormSubmit.co configuration -->
-                        <input type="hidden" name="_subject" value="New message from Whakatane Home Makers Club Website">
-                        <input type="hidden" name="_template" value="table">
-                        <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_next" value="https://whakatanehomemakersclub.github.io/thank-you.html">
-                        
-                        <div class="form-group">
-                            <label for="name">Your Name</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Phone Number (optional)</label>
-                            <input type="tel" id="phone" name="phone">
-                        </div>
-                        <div class="form-group">
-                            <label for="interest">What interests you most about our club?</label>
-                            <select id="interest" name="interest" required>
-                                <option value="" disabled selected>Please select...</option>
-                                <option value="Crafting & DIY">Crafting & DIY</option>
-                                <option value="Cooking & Baking">Cooking & Baking</option>
-                                <option value="Gardening">Gardening</option>
-                                <option value="Community Events">Community Events</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Your Message</label>
-                            <textarea id="message" name="message" rows="4" required></textarea>
-                        </div>
-                        <button type="submit" class="contact-btn">Send Message</button>
-                    </form>
-                </div>
+                <div class="container">
+        <h2>Get in Touch</h2>
+        <p>Questions about the club or upcoming event? We'd love to hear from you!</p>
+        
+        <!-- Simple mailto button instead of form -->
+        <a href="mailto:whakatanehomemakers@gmail.com" class="contact-btn">
+            <i class="fas fa-envelope"></i> Email Us
+        </a>
+        
+        <div class="social-links">
+            <p>Follow our journey:</p>
+            <a href="https://instagram.com/whakatanehome.makersclub" class="social-btn">
+                <i class="fab fa-instagram"></i> Instagram
+            </a>
+        </div>
+    </div>
                 
                 <div class="social-links">
                     <p>Follow our journey:</p>
