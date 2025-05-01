@@ -59,14 +59,14 @@ body {
 }
 
 .logo {
-  width: 120px;
-  height: auto;
-  max-width: 100%;
+  width: 100px;
+  height: 100px;
   object-fit: contain;
   margin-bottom: 30px;
   opacity: 0;
   transform: translateY(20px);
   animation: fadeIn 0.8s ease-out forwards;
+  border-radius: 50%;
 }
 
 .hero-content {
