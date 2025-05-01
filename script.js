@@ -1,15 +1,8 @@
 // Modern JavaScript for Whakatane Home Makers Club Landing Page
 
-// DOM elements
-const eventCard = document.querySelector('.event-card');
-const rsvpBtn = document.querySelector('.rsvp-btn');
-const rsvpModal = document.getElementById('rsvpModal');
-const contactModal = document.getElementById('contactModal');
-const contactUsBtn = document.querySelector('.contact-us-btn');
-const closeBtn = document.querySelector('.close-btn');
-const contactCloseBtn = document.querySelector('.contact-close-btn');
-const rsvpForm = document.getElementById('rsvpForm');
-const contactForm = document.getElementById('contactForm');
+// DOM elements - We'll define most elements here but will query for some in the init function
+// to ensure the DOM is fully loaded
+let eventCard, rsvpBtn, rsvpModal, contactModal, contactUsBtn, closeBtn, contactCloseBtn, rsvpForm, contactForm;
 const countdownEl = document.getElementById('countdown');
 const daysEl = document.getElementById('days');
 const hoursEl = document.getElementById('hours');
@@ -31,13 +24,29 @@ const observer = new IntersectionObserver((entries) => {
 
 // Initialize the page
 function init() {
+  // Initialize all DOM elements to ensure they're available
+  eventCard = document.querySelector('.event-card');
+  rsvpBtn = document.querySelector('.rsvp-btn');
+  rsvpModal = document.getElementById('rsvpModal');
+  contactModal = document.getElementById('contactModal');
+  contactUsBtn = document.getElementById('contactUsBtn'); // Use ID for more reliable selection
+  closeBtn = document.querySelector('.close-btn');
+  contactCloseBtn = document.querySelector('.contact-close-btn');
+  rsvpForm = document.getElementById('rsvpForm');
+  contactForm = document.getElementById('contactForm');
+  
+  console.log("Contact button found:", contactUsBtn !== null);
+  console.log("Contact modal found:", contactModal !== null);
+  
   // Start countdown
   updateCountdown();
   // Update every second for more dynamic countdown
   setInterval(updateCountdown, 1000);
   
   // Set up observers for animation
-  observer.observe(eventCard);
+  if (eventCard) {
+    observer.observe(eventCard);
+  }
   
   // Set up event listeners
   setupEventListeners();
@@ -81,18 +90,30 @@ function updateCountdown() {
 // Set up event listeners
 function setupEventListeners() {
   // RSVP Modal open
-  rsvpBtn.addEventListener('click', () => {
-    openModal(rsvpModal);
-  });
+  if (rsvpBtn) {
+    rsvpBtn.addEventListener('click', () => {
+      openModal(rsvpModal);
+      console.log("RSVP button clicked");
+    });
+  }
   
   // Contact Modal open
-  contactUsBtn.addEventListener('click', () => {
-    openModal(contactModal);
-  });
+  if (contactUsBtn) {
+    console.log("Adding event listener to Contact Us button");
+    contactUsBtn.addEventListener('click', () => {
+      console.log("Contact Us button clicked");
+      openModal(contactModal);
+    });
+  }
   
   // Modal close buttons
-  closeBtn.addEventListener('click', () => closeModal(rsvpModal));
-  contactCloseBtn.addEventListener('click', () => closeModal(contactModal));
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => closeModal(rsvpModal));
+  }
+  
+  if (contactCloseBtn) {
+    contactCloseBtn.addEventListener('click', () => closeModal(contactModal));
+  }
   
   // Close if clicked outside modal
   window.addEventListener('click', (e) => {
@@ -105,12 +126,22 @@ function setupEventListeners() {
   });
   
   // Handle form submissions
-  rsvpForm.addEventListener('submit', handleRsvpSubmit);
-  contactForm.addEventListener('submit', handleContactSubmit);
+  if (rsvpForm) {
+    rsvpForm.addEventListener('submit', handleRsvpSubmit);
+  }
+  
+  if (contactForm) {
+    contactForm.addEventListener('submit', handleContactSubmit);
+  }
 }
 
 // Open modal function
 function openModal(modal) {
+  console.log("Opening modal:", modal);
+  if (!modal) {
+    console.error("Modal element is null or undefined");
+    return;
+  }
   modal.style.display = 'flex';
   setTimeout(() => {
     modal.classList.add('show');
@@ -217,4 +248,26 @@ function handleImageErrors() {
 }
 
 // Initialize everything once DOM is loaded
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', function() {
+  init();
+  
+  // Direct event listener as a backup approach
+  const contactBtn = document.getElementById('contactUsBtn');
+  if (contactBtn) {
+    console.log("Adding direct event listener to contact button");
+    contactBtn.onclick = function() {
+      console.log("Contact button clicked directly");
+      const modal = document.getElementById('contactModal');
+      if (modal) {
+        modal.style.display = 'flex';
+        setTimeout(() => {
+          modal.classList.add('show');
+        }, 10);
+      } else {
+        console.error("Contact modal not found");
+      }
+    };
+  } else {
+    console.error("Contact button not found by ID");
+  }
+});
