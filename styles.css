@@ -351,7 +351,8 @@ p {
 }
 
 .form-group input[type="text"],
-.form-group input[type="email"] {
+.form-group input[type="email"],
+.form-group input[type="tel"] {
   width: 100%;
   padding: 14px;
   border: 1px solid #ddd;
@@ -523,6 +524,7 @@ footer {
   .hero::after {
     height: 10px;
   }
+}
 
 /* Contact Form Styles */
 textarea {
@@ -575,115 +577,22 @@ select:focus {
   margin-bottom: 15px;
 }
 
-/* 4. ADD JAVASCRIPT to script.js */
-// Contact form variables
-const contactUsBtn = document.querySelector('.contact-us-btn');
-const contactModal = document.getElementById('contactModal');
-const contactCloseBtn = document.querySelector('.contact-close-btn');
-const contactForm = document.getElementById('contactForm');
-
-// Add to your setupEventListeners function:
-function setupEventListeners() {
-  // Existing code...
-  
-  // Contact Modal Open
-  contactUsBtn.addEventListener('click', () => {
-    contactModal.style.display = 'flex';
-    setTimeout(() => {
-      contactModal.classList.add('show');
-    }, 10);
-  });
-  
-  // Contact Modal Close
-  contactCloseBtn.addEventListener('click', closeContactModal);
-  
-  // Close if clicked outside
-  window.addEventListener('click', (e) => {
-    if (e.target === contactModal) {
-      closeContactModal();
-    }
-    // Keep the existing code for the RSVP modal
-    if (e.target === modal) {
-      closeModal();
-    }
-  });
-  
-  // Handle contact form submission
-  contactForm.addEventListener('submit', handleContactFormSubmit);
+/* Error Message */
+.error-message {
+  color: #D8000C;
+  background-color: #FFBABA;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 15px;
+  text-align: center;
 }
 
-// Close the contact modal
-function closeContactModal() {
-  contactModal.classList.remove('show');
-  setTimeout(() => {
-    contactModal.style.display = 'none';
-  }, 300);
+.fa-spinner {
+  margin-right: 5px;
+  animation: spin 1s infinite linear;
 }
 
-// Handle contact form submission
-function handleContactFormSubmit(e) {
-  e.preventDefault();
-  
-  // Get form data
-  const name = document.getElementById('contactName').value;
-  const email = document.getElementById('contactEmail').value;
-  const phone = document.getElementById('contactPhone').value;
-  const interest = document.getElementById('contactInterest').value;
-  const message = document.getElementById('contactMessage').value;
-  
-  // In a real application, you would send this data to a server
-  // For example, using EmailJS or a server-side script
-  
-  // Create email content (for demonstration)
-  const emailBody = `
-    Name: ${name}
-    Email: ${email}
-    Phone: ${phone}
-    Interest: ${interest}
-    Message: ${message}
-  `;
-  
-  console.log('Email would be sent with this content:', emailBody);
-  
-  // For this demo, we're just showing a success message
-  contactForm.innerHTML = `
-    <div class="success-message">
-      <i class="fas fa-check-circle"></i>
-      <h3>Thank you, ${name}!</h3>
-      <p>Your message has been sent successfully.</p>
-      <p>We'll be in touch with you soon.</p>
-    </div>
-  `;
-  
-  // Close modal after 3 seconds
-  setTimeout(closeContactModal, 3000);
-  
-  // In a real implementation, you could use something like:
-  /*
-  // Using EmailJS example
-  emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
-    from_name: name,
-    from_email: email,
-    from_phone: phone,
-    interest: interest,
-    message: message
-  })
-  .then(function(response) {
-    console.log('SUCCESS!', response.status, response.text);
-    // Show success message
-    contactForm.innerHTML = `
-      <div class="success-message">
-        <i class="fas fa-check-circle"></i>
-        <h3>Thank you, ${name}!</h3>
-        <p>Your message has been sent successfully.</p>
-        <p>We'll be in touch with you soon.</p>
-      </div>
-    `;
-    setTimeout(closeContactModal, 3000);
-  }, function(error) {
-    console.log('FAILED...', error);
-    // Show error message
-  });
-  */
-}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
