@@ -61,6 +61,8 @@ body {
 .logo {
   width: 120px;
   height: auto;
+  max-width: 100%;
+  object-fit: contain;
   margin-bottom: 30px;
   opacity: 0;
   transform: translateY(20px);
@@ -150,6 +152,8 @@ p {
   width: 100%;
   max-width: 600px;
   height: auto;
+  max-height: 400px;
+  object-fit: cover;
   border-radius: 8px;
   margin-bottom: 30px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.1);
