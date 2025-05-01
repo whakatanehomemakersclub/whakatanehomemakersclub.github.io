@@ -67,12 +67,51 @@
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section class="contact-section">
+        <!-- Contact Section - Now with embedded form -->
+        <section class="contact-section" id="contact">
             <div class="container">
                 <h2>Get in Touch</h2>
                 <p>Questions about the club or upcoming event? We'd love to hear from you!</p>
-                <button class="contact-btn contact-us-btn">Contact Us</button>
+                
+                <!-- Embedded Contact Form -->
+                <div class="contact-form-container">
+                    <form id="contactForm" action="https://formsubmit.co/whakatanehomemakers@gmail.com" method="POST">
+                        <!-- FormSubmit.co configuration -->
+                        <input type="hidden" name="_subject" value="New message from Whakatane Home Makers Club Website">
+                        <input type="hidden" name="_template" value="table">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_next" value="https://whakatanehomemakersclub.github.io/thank-you.html">
+                        
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number (optional)</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="interest">What interests you most about our club?</label>
+                            <select id="interest" name="interest" required>
+                                <option value="" disabled selected>Please select...</option>
+                                <option value="Crafting & DIY">Crafting & DIY</option>
+                                <option value="Cooking & Baking">Cooking & Baking</option>
+                                <option value="Gardening">Gardening</option>
+                                <option value="Community Events">Community Events</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea id="message" name="message" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="contact-btn">Send Message</button>
+                    </form>
+                </div>
                 
                 <div class="social-links">
                     <p>Follow our journey:</p>
@@ -89,65 +128,33 @@
         <div class="modal-content">
             <span class="close-btn">&times;</span>
             <h2>RSVP for the Event</h2>
-            <form id="rsvpForm">
+            <form id="rsvpForm" action="https://formsubmit.co/whakatanehomemakers@gmail.com" method="POST">
+                <!-- FormSubmit.co configuration -->
+                <input type="hidden" name="_subject" value="New RSVP for Whakatane Home Makers Club Event">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="https://whakatanehomemakersclub.github.io/thank-you-rsvp.html">
+                
                 <div class="form-group">
-                    <label for="name">Your Name</label>
-                    <input type="text" id="name" required>
+                    <label for="rsvp-name">Your Name</label>
+                    <input type="text" id="rsvp-name" name="name" required>
                 </div>
                 <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" required>
+                    <label for="rsvp-email">Email Address</label>
+                    <input type="email" id="rsvp-email" name="email" required>
                 </div>
                 <div class="form-group">
                     <label>Will you attend?</label>
                     <div class="radio-group">
-                        <input type="radio" id="yes" name="attendance" value="yes" checked>
+                        <input type="radio" id="yes" name="attendance" value="Yes, I'll be there!" checked>
                         <label for="yes">Yes, I'll be there!</label>
                     </div>
                     <div class="radio-group">
-                        <input type="radio" id="no" name="attendance" value="no">
+                        <input type="radio" id="no" name="attendance" value="Sorry, I can't make it">
                         <label for="no">Sorry, I can't make it</label>
                     </div>
                 </div>
                 <button type="submit" class="contact-btn">Submit RSVP</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Contact Form Modal -->
-    <div id="contactModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn contact-close-btn">&times;</span>
-            <h2>Get In Touch</h2>
-            <form id="contactForm">
-                <div class="form-group">
-                    <label for="contactName">Your Name</label>
-                    <input type="text" id="contactName" required>
-                </div>
-                <div class="form-group">
-                    <label for="contactEmail">Email Address</label>
-                    <input type="email" id="contactEmail" required>
-                </div>
-                <div class="form-group">
-                    <label for="contactPhone">Phone Number (optional)</label>
-                    <input type="tel" id="contactPhone">
-                </div>
-                <div class="form-group">
-                    <label for="contactInterest">What interests you most about our club?</label>
-                    <select id="contactInterest" required>
-                        <option value="" disabled selected>Please select...</option>
-                        <option value="crafting">Crafting & DIY</option>
-                        <option value="cooking">Cooking & Baking</option>
-                        <option value="gardening">Gardening</option>
-                        <option value="community">Community Events</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="contactMessage">Your Message</label>
-                    <textarea id="contactMessage" rows="4" required></textarea>
-                </div>
-                <button type="submit" class="contact-btn">Send Message</button>
             </form>
         </div>
     </div>
