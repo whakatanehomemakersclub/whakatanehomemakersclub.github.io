@@ -523,4 +523,167 @@ footer {
   .hero::after {
     height: 10px;
   }
+
+/* Contact Form Styles */
+textarea {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: var(--font-body);
+  resize: vertical;
+  min-height: 100px;
+  transition: border 0.3s ease;
+}
+
+textarea:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+select {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: white;
+  transition: border 0.3s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%235a4a42%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem top 50%;
+  background-size: 0.65rem auto;
+}
+
+select:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+/* Success Message */
+.success-message {
+  text-align: center;
+  padding: 30px 0;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.success-message i {
+  font-size: 3rem;
+  color: #4CAF50;
+  margin-bottom: 15px;
+}
+
+/* 4. ADD JAVASCRIPT to script.js */
+// Contact form variables
+const contactUsBtn = document.querySelector('.contact-us-btn');
+const contactModal = document.getElementById('contactModal');
+const contactCloseBtn = document.querySelector('.contact-close-btn');
+const contactForm = document.getElementById('contactForm');
+
+// Add to your setupEventListeners function:
+function setupEventListeners() {
+  // Existing code...
+  
+  // Contact Modal Open
+  contactUsBtn.addEventListener('click', () => {
+    contactModal.style.display = 'flex';
+    setTimeout(() => {
+      contactModal.classList.add('show');
+    }, 10);
+  });
+  
+  // Contact Modal Close
+  contactCloseBtn.addEventListener('click', closeContactModal);
+  
+  // Close if clicked outside
+  window.addEventListener('click', (e) => {
+    if (e.target === contactModal) {
+      closeContactModal();
+    }
+    // Keep the existing code for the RSVP modal
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+  
+  // Handle contact form submission
+  contactForm.addEventListener('submit', handleContactFormSubmit);
+}
+
+// Close the contact modal
+function closeContactModal() {
+  contactModal.classList.remove('show');
+  setTimeout(() => {
+    contactModal.style.display = 'none';
+  }, 300);
+}
+
+// Handle contact form submission
+function handleContactFormSubmit(e) {
+  e.preventDefault();
+  
+  // Get form data
+  const name = document.getElementById('contactName').value;
+  const email = document.getElementById('contactEmail').value;
+  const phone = document.getElementById('contactPhone').value;
+  const interest = document.getElementById('contactInterest').value;
+  const message = document.getElementById('contactMessage').value;
+  
+  // In a real application, you would send this data to a server
+  // For example, using EmailJS or a server-side script
+  
+  // Create email content (for demonstration)
+  const emailBody = `
+    Name: ${name}
+    Email: ${email}
+    Phone: ${phone}
+    Interest: ${interest}
+    Message: ${message}
+  `;
+  
+  console.log('Email would be sent with this content:', emailBody);
+  
+  // For this demo, we're just showing a success message
+  contactForm.innerHTML = `
+    <div class="success-message">
+      <i class="fas fa-check-circle"></i>
+      <h3>Thank you, ${name}!</h3>
+      <p>Your message has been sent successfully.</p>
+      <p>We'll be in touch with you soon.</p>
+    </div>
+  `;
+  
+  // Close modal after 3 seconds
+  setTimeout(closeContactModal, 3000);
+  
+  // In a real implementation, you could use something like:
+  /*
+  // Using EmailJS example
+  emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+    from_name: name,
+    from_email: email,
+    from_phone: phone,
+    interest: interest,
+    message: message
+  })
+  .then(function(response) {
+    console.log('SUCCESS!', response.status, response.text);
+    // Show success message
+    contactForm.innerHTML = `
+      <div class="success-message">
+        <i class="fas fa-check-circle"></i>
+        <h3>Thank you, ${name}!</h3>
+        <p>Your message has been sent successfully.</p>
+        <p>We'll be in touch with you soon.</p>
+      </div>
+    `;
+    setTimeout(closeContactModal, 3000);
+  }, function(error) {
+    console.log('FAILED...', error);
+    // Show error message
+  });
+  */
+}
 }
